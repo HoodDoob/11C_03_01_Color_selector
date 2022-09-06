@@ -1,3 +1,4 @@
+"use strict";
 init();
 function init() {
   document.querySelector("#colorselector").addEventListener("input", update);
@@ -5,65 +6,63 @@ function init() {
   //   calculateRGB();
 }
 function update() {
-  colorValue = document.querySelector("#colorselector").value;
-  changeTextHEX();
-  changeRGB();
-  changeTextRGB();
-  changeHSL();
-  colorBlock();
+  const colorValue = document.querySelector("#colorselector").value;
+  console.log("colorval", colorValue);
+  changeTextHEX(colorValue);
+  changeRGB(colorValue);
+  changeTextRGB(colorValue);
+  changeHSL(colorValue);
+  changeTextHSL(colorValue);
+  colorBlock(colorValue);
 }
 
-function colorBlock() {
-  colorValue = document.querySelector("#colorselector").value;
+function colorBlock(colorValue) {
+  // colorValue = document.querySelector("#colorselector").value;
   document.querySelector("#colorblock").style.backgroundColor = colorValue;
   console.log(colorValue);
 }
 
-function changeTextHEX() {
+function changeTextHEX(colorValue) {
   document.querySelector("#hexvalue").textContent = colorValue;
 }
 
-function changeRGB() {
-  colorString = colorValue.toString();
-  r = colorString.substring(1, 3);
-  rNumber = parseInt(r, 16);
-  g = colorString.substring(3, 5);
-  gNumber = parseInt(g, 16);
-  b = colorString.substring(5, 7);
-  bNumber = parseInt(b, 16);
-  const rgb = { rNumber, gNumber, bNumber };
+function changeRGB(colorValue) {
+  let colorString = colorValue.toString();
+  let r = colorString.substring(1, 3);
+  let rNumber = parseInt(r, 16);
+  let g = colorString.substring(3, 5);
+  let gNumber = parseInt(g, 16);
+  let b = colorString.substring(5, 7);
+  let bNumber = parseInt(b, 16);
+  let rgb = { rNumber, gNumber, bNumber };
   return rgb;
 }
-function changeTextRGB(rgb) {
+
+function changeTextRGB(colorValue) {
+  const rgbObj = changeRGB(colorValue);
   document.querySelector("#rgbvalue").textContent =
-    rNumber + " " + gNumber + " " + bNumber;
+    rgbObj.rNumber + " " + rgbObj.gNumber + " " + rgbObj.bNumber;
 }
 
-function changeHSL(rgb) {
-  // colorString = colorValue.toString();
-  // r = colorString.substring(1, 3);
-  // rNumber = parseInt(r, 16);
-  // g = colorString.substring(3, 5);
-  // gNumber = parseInt(g, 16);
-  // b = colorString.substring(5, 7);
-  // bNumber = parseInt(b, 16);
-  rNumber /= 255;
-  gNumber /= 255;
-  bNumber /= 255;
+function changeHSL(colorValue) {
+  const rgbObj = changeRGB(colorValue);
+  rgbObj.rNumber /= 255;
+  rgbObj.gNumber /= 255;
+  rgbObj.bNumber /= 255;
 
   let h, s, l;
 
-  const min = Math.min(rNumber, gNumber, bNumber);
-  const max = Math.max(rNumber, gNumber, bNumber);
+  const min = Math.min(rgbObj.rNumber, rgbObj.gNumber, rgbObj.bNumber);
+  const max = Math.max(rgbObj.rNumber, rgbObj.gNumber, rgbObj.bNumber);
 
   if (max === min) {
     h = 0;
-  } else if (max === rNumber) {
-    h = 60 * (0 + (gNumber - bNumber) / (max - min));
-  } else if (max === gNumber) {
-    h = 60 * (2 + (bNumber - rNumber) / (max - min));
-  } else if (max === bNumber) {
-    h = 60 * (4 + (rNumber - gNumber) / (max - min));
+  } else if (max === rgbObj.rNumber) {
+    h = 60 * (0 + (rgbObj.gNumber - rgbObj.bNumber) / (max - min));
+  } else if (max === rgbObj.gNumber) {
+    h = 60 * (2 + (rgbObj.bNumber - rgbObj.rNumber) / (max - min));
+  } else if (max === rgbObj.bNumber) {
+    h = 60 * (4 + (rgbObj.rNumber - rgbObj.gNumber) / (max - min));
   }
 
   if (h < 0) {
@@ -84,76 +83,11 @@ function changeHSL(rgb) {
   h = h.toFixed(0);
   s = s.toFixed(0);
   l = l.toFixed(0);
-  console.log("hsl(%f,%f%,%f%)", h, s, l); // just for testing
+  return { h, s, l };
+}
+function changeTextHSL(colorValue) {
+  const rgbObj = changeHSL(colorValue);
+
   document.querySelector("#hslvalue").textContent =
-    h + ", " + s + "% " + l + "%";
+    rgbObj.h + ", " + rgbObj.s + "% " + rgbObj.l + "%";
 }
-
-cssToRGB("rgb(192, 13, 1)");
-
-cssToRGB("rgb(2, 23, 146)");
-function cssToRGB(string) {
-  r = string
-    .substring(string.indexOf("("), string.indexOf(","))
-    .replaceAll("(", "");
-  g = string.substring(string.indexOf(" "), string.lastIndexOf(",")).trim();
-  b = string
-    .substring(string.lastIndexOf(" "), string.indexOf(")"))
-    .replaceAll(")", "")
-    .trim();
-  rNumber = parseInt(r);
-  gNumber = parseInt(g);
-  bNumber = parseInt(b);
-  // const RGBObject = new Object();
-  // RGBObject.r = rNumber;
-  // RGBObject.b = bNumber;
-  // RGBObject.g = gNumber;
-  console.log(
-    "the css to rgb function : " + rNumber + " " + gNumber + " " + bNumber
-  );
-}
-
-hexToRGB("#c0ffee");
-
-function hexToRGB(string) {
-  r = string.substring(1, 3);
-  rNumber = parseInt(r, 16);
-  g = string.substring(3, 5);
-  gNumber = parseInt(g, 16);
-  b = string.substring(5, 7);
-  bNumber = parseInt(b, 16);
-  console.log(
-    "the hex to rgb function : " + rNumber + " " + gNumber + " " + bNumber
-  );
-}
-RGBtoHex(9, 0, 37);
-
-function RGBtoHex(r, b, g) {
-  redPart = r.toString(16);
-  greenPart = b.toString(16);
-  bluePart = g.toString(16);
-  console.log(redPart);
-  console.log(greenPart);
-  console.log(bluePart);
-  if (redPart.length == 1) {
-    redPart = 0 + redPart;
-  }
-  if (greenPart.length == 1) {
-    greenPart = 0 + greenPart;
-  }
-  if (bluePart.length == 1) {
-    bluePart = 0 + bluePart;
-  }
-  console.log("#" + redPart + greenPart + bluePart);
-}
-
-// console.log();
-// middleName = magician.substring(
-//   magician.indexOf(" "),
-//   magician.lastIndexOf(" ")
-// );
-// lastName = magician.substring(magician.lastIndexOf(" "));
-
-// console.log("The first name is " + firstName);
-// console.log("The middle name is " + middleName);
-// console.log("The last name is " + lastName);

@@ -1,51 +1,3 @@
-// const initialName = "Abd ulha mid";
-
-// firstName = initialName.substring(0, 2);
-// firstArray = initialName.split("");
-
-// console.log(firstArray[3]);
-// console.log();
-// capitalName = initialName[2];
-// restName = initialName.substring(3);
-// // console.log(capitalName);
-// // funnyName2 = funnyName1[2].toUpperCase();
-// console.log(
-//   firstName.toLowerCase() + capitalName.toUpperCase() + restName.toLowerCase()
-// );
-
-// capitalize("dfgnkj");
-// capitalize("joe cocker");
-
-// function capitalize(str) {
-//   console.log(str[0].toUpperCase() + str.substring(1));
-// }
-
-// getNameParts("robert kj orsdsd");
-// function getNameParts(fullname) {
-//   firstName = fullname.substring(fullname.indexOf(""), fullname.indexOf(" "));
-//   middleName = fullname.substring(
-//     fullname.indexOf(" "),
-//     fullname.lastIndexOf(" ")
-//   );
-
-//   lastName = fullname.substring(fullname.lastIndexOf(" "));
-//   if (middleName == "") {
-//     middleName = "undefined";
-//   }
-//   console.log({ firstName, middleName, lastName });
-// }
-
-// fullName("Potter", "Harry", "James");
-// fullName("Potter", "Harry");
-// fullName("Harry", "Potter");
-// fullName("Potter", "Harry", "James", "Pottypotpot");
-// function fullName(lastName, firstName, middleName) {
-//   if (middleName === undefined) {
-//     console.log(firstName + " " + lastName);
-//   } else {
-//     console.log(firstName + " " + middleName + " " + lastName);
-//   }
-// }
 init();
 function init() {
   document.querySelector("#colorselector").addEventListener("input", update);
@@ -54,8 +6,9 @@ function init() {
 }
 function update() {
   colorValue = document.querySelector("#colorselector").value;
-  changeHEX();
+  changeTextHEX();
   changeRGB();
+  changeTextRGB();
   changeHSL();
   colorBlock();
 }
@@ -66,7 +19,7 @@ function colorBlock() {
   console.log(colorValue);
 }
 
-function changeHEX() {
+function changeTextHEX() {
   document.querySelector("#hexvalue").textContent = colorValue;
 }
 
@@ -78,19 +31,22 @@ function changeRGB() {
   gNumber = parseInt(g, 16);
   b = colorString.substring(5, 7);
   bNumber = parseInt(b, 16);
-
+  const rgb = { rNumber, gNumber, bNumber };
+  return rgb;
+}
+function changeTextRGB(rgb) {
   document.querySelector("#rgbvalue").textContent =
     rNumber + " " + gNumber + " " + bNumber;
 }
 
-function changeHSL() {
-  colorString = colorValue.toString();
-  r = colorString.substring(1, 3);
-  rNumber = parseInt(r, 16);
-  g = colorString.substring(3, 5);
-  gNumber = parseInt(g, 16);
-  b = colorString.substring(5, 7);
-  bNumber = parseInt(b, 16);
+function changeHSL(rgb) {
+  // colorString = colorValue.toString();
+  // r = colorString.substring(1, 3);
+  // rNumber = parseInt(r, 16);
+  // g = colorString.substring(3, 5);
+  // gNumber = parseInt(g, 16);
+  // b = colorString.substring(5, 7);
+  // bNumber = parseInt(b, 16);
   rNumber /= 255;
   gNumber /= 255;
   bNumber /= 255;

@@ -2,8 +2,6 @@
 init();
 function init() {
   document.querySelector("#colorselector").addEventListener("input", update);
-
-  //   calculateRGB();
 }
 function update() {
   const colorValue = document.querySelector("#colorselector").value;
@@ -14,18 +12,20 @@ function update() {
   changeHSL(colorValue);
   changeTextHSL(colorValue);
   colorBlock(colorValue);
+  calculateCSSstring(colorValue);
+  showCSSstring(colorValue);
 }
 
-function colorBlock(colorValue) {
-  // colorValue = document.querySelector("#colorselector").value;
-  document.querySelector("#colorblock").style.backgroundColor = colorValue;
-  console.log(colorValue);
-}
+// Model Model Model Model
 
-function changeTextHEX(colorValue) {
-  document.querySelector("#hexvalue").textContent = colorValue;
+function calculateCSSstring(colorValue) {
+  const rgbObj = changeRGB(colorValue);
+  let rCSS = rgbObj.rNumber;
+  let gCSS = rgbObj.gNumber;
+  let bCSS = rgbObj.bNumber;
+  let CSSstring = { rCSS, gCSS, bCSS };
+  return CSSstring;
 }
-
 function changeRGB(colorValue) {
   let colorString = colorValue.toString();
   let r = colorString.substring(1, 3);
@@ -36,12 +36,6 @@ function changeRGB(colorValue) {
   let bNumber = parseInt(b, 16);
   let rgb = { rNumber, gNumber, bNumber };
   return rgb;
-}
-
-function changeTextRGB(colorValue) {
-  const rgbObj = changeRGB(colorValue);
-  document.querySelector("#rgbvalue").textContent =
-    rgbObj.rNumber + " " + rgbObj.gNumber + " " + rgbObj.bNumber;
 }
 
 function changeHSL(colorValue) {
@@ -85,9 +79,34 @@ function changeHSL(colorValue) {
   l = l.toFixed(0);
   return { h, s, l };
 }
+
+// View View View View
+
+function changeTextHEX(colorValue) {
+  document.querySelector("#hexvalue").textContent = colorValue;
+}
+
+function changeTextRGB(colorValue) {
+  const rgbObj = changeRGB(colorValue);
+  document.querySelector("#rgbvalue").textContent =
+    rgbObj.rNumber + " " + rgbObj.gNumber + " " + rgbObj.bNumber;
+}
 function changeTextHSL(colorValue) {
   const rgbObj = changeHSL(colorValue);
 
   document.querySelector("#hslvalue").textContent =
     rgbObj.h + ", " + rgbObj.s + "% " + rgbObj.l + "%";
+}
+function showCSSstring(colorValue) {
+  const CSSobj = calculateCSSstring(colorValue);
+  document.querySelector(
+    "#CSSvalue"
+  ).textContent = `rgb(${CSSobj.rCSS}, ${CSSobj.gCSS}, ${CSSobj.bCSS})`;
+}
+
+// Controller Controller Controller Controller
+
+function colorBlock(colorValue) {
+  document.querySelector("#colorblock").style.backgroundColor = colorValue;
+  console.log(colorValue);
 }

@@ -91,9 +91,9 @@ function changeHSL() {
   gNumber = parseInt(g, 16);
   b = colorString.substring(5, 7);
   bNumber = parseInt(b, 16);
-  r /= 255;
-  g /= 255;
-  b /= 255;
+  rNumber /= 255;
+  gNumber /= 255;
+  bNumber /= 255;
 
   let h, s, l;
 
@@ -125,6 +125,9 @@ function changeHSL() {
   s *= 100;
   l *= 100;
 
+  h = h.toFixed(0);
+  s = s.toFixed(0);
+  l = l.toFixed(0);
   console.log("hsl(%f,%f%,%f%)", h, s, l); // just for testing
   document.querySelector("#hslvalue").textContent =
     h + ", " + s + "% " + l + "%";

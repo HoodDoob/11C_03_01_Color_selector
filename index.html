@@ -8,16 +8,71 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>color selector</h1>
+    <h1>Color Selector by</h1>
     <div id="wrapper">
-      <div><input type="color" id="colorselector" /></div>
-      <div id="colorblock"></div>
-      <div id="values">
+      <div><input type="color" id="colorSelector" /></div>
+      <select name="pallettePicker" id="pallettePicker">
+        <option value="analogous">Analogous</option>
+        <option value="monochromatic">Monochromatic</option>
+      </select>
+      <div id="colorblock">
+        <div class="oneColorRegular">
+          <div class="elCircle regularCircle borderLeft"></div>
+          <div class="elLine"></div>
+          <div class="elSquare regularSquare borderLeft" id="square0">
+            <p>HEX value is <span class="hexvalue">s</span></p>
+            <p>RGB value is <span class="rgbvalue">sdf</span></p>
+            <p>HSL value is <span class="hslvalue">fd</span></p>
+          </div>
+        </div>
+
+        <div class="oneColorOpposite">
+          <div class="elSquare oppositeSquare borderLeft" id="square1">
+            <p>HEX value is <span class="hexvalue">sdf</span></p>
+            <p>RGB value is <span class="rgbvalue">sdf</span></p>
+            <p>HSL value is <span class="hslvalue">sdf</span></p>
+          </div>
+          <div class="elLine"></div>
+          <div class="elCircle oppositeCircle borderLeft"></div>
+        </div>
+
+        <div class="oneColorRegular">
+          <div class="elCircle regularCircle borderMiddle"></div>
+          <div class="elLine ticc"></div>
+          <div class="elSquare regularSquare borderMiddle" id="square2">
+            <p>HEX value is <span class="hexvalue">f</span></p>
+            <p>RGB value is <span class="rgbvalue">f</span></p>
+            <p>HSL value is <span class="hslvalue">f</span></p>
+            <!-- <p>CSS: <span id="CSSvalue"></span></p> -->
+          </div>
+        </div>
+
+        <div class="oneColorOpposite">
+          <div class="elSquare oppositeSquare borderRight" id="square3">
+            <p>HEX value is <span class="hexvalue">d</span></p>
+            <p>RGB value is <span class="rgbvalue">s</span></p>
+            <p>HSL value is <span class="hslvalue">f</span></p>
+          </div>
+          <div class="elLine"></div>
+          <div class="elCircle oppositeCircle borderRight"></div>
+        </div>
+
+        <div class="oneColorRegular">
+          <div class="elCircle regularCircle borderRight"></div>
+          <div class="elLine"></div>
+          <div class="elSquare regularSquare borderRight" id="square4">
+            <p>HEX value is <span class="hexvalue">f</span></p>
+            <p>RGB value is <span class="rgbvalue">f</span></p>
+            <p>HSL value is <span class="hslvalue">f</span></p>
+          </div>
+        </div>
+      </div>
+      <!-- <div id="values">
         <p>HEX value is <span id="hexvalue"></span></p>
         <p>RGB value is <span id="rgbvalue"></span></p>
         <p>HSL value is <span id="hslvalue"></span></p>
         <p>CSS copy-paste is <span id="CSSvalue"></span></p>
-      </div>
+      </div> -->
     </div>
   </body>
   <script src="colorselector.js"></script>

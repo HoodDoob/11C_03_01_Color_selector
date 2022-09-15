@@ -1,7 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,800;1,400&display=swap");
+body {
+  background-color: rgb(214, 255, 222);
+  font-family: "Playfair Display";
+}
+p {
+  margin-left: 0.5vw;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  font-size: 1.3vw;
+  font-weight: 400;
+  color: rgb(40, 40, 40);
+}
+h1 {
+  font-weight: 800;
+}
 #colorblock {
   display: block;
-  background-color: blueviolet;
-  border: 2px solid black;
-  width: 200px;
-  height: 200px;
+  /* background-image: linear-gradient(to right, red, yellow, green, blue, violet); */
+  /* background-image: linear-gradient(
+    to right,
+    hsl(1, 2%, 3%) 10%,
+    hsl(5, 5%, 5%) 31%,
+    hsl(3, 2%, 5%) 50%,
+    hsl(2, 5%, 5%) 69%,
+    hsl(6, 4%, 5%) 89%
+  ); */
+  border-right: 3px solid black;
+  border-left: 3px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-radius: 5vw;
+  width: 30vw;
+  height: 20vw;
+}
+
+.elLine {
+  border-left: 0.5px solid;
+  height: 12vw;
+  height: 100%;
+  /* left: 50%; */
+  justify-self: center;
+  align-self: center;
+}
+#colorblock {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1vw;
+}
+.oneColorRegular {
+  display: grid;
+  justify-content: center;
+  grid-template-rows: 35% 25% 40%;
+}
+.oneColorOpposite {
+  display: grid;
+  justify-content: center;
+  grid-template-rows: 40% 25% 35%;
+}
+.elSquare {
+  display: block;
+  border-radius: 1vw;
+  height: 8vw;
+  width: 14vw;
+  border: 0.5px solid black;
+  justify-self: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.144);
+  /* margin-left: 1vw;
+  margin-right: 1vw; */
+}
+#square3 p {
+  position: relative;
+}
+
+/* changes the order */
+
+.elCircle {
+  display: block;
+  border: 0.5px solid black;
+  border-radius: 50%;
+  height: 12vw;
+  width: 12vw;
+  justify-self: center;
+  /* margin-left: 1vw;
+  margin-right: 1vw; */
+}
+.oppositeCircle {
+  align-self: start;
+}
+.regularCircle {
+  /* margin-top: 4vw; */
+  align-self: end;
+}
+.oppositeSquare {
+  /* margin-top: 2vw; */
+  align-self: end;
+}
+.regularSquare {
+  /* margin-bottom: 2vw; */
+  align-self: start;
+}
+.borderRight {
+  border-right: 2px solid black;
+}
+.borderLeft {
+  border-left: 2px solid black;
+}
+.borderMiddle {
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+.hidden {
+  visibility: hidden;
 }

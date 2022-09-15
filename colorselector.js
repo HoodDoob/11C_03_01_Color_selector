@@ -41,10 +41,35 @@ function update() {
 
 // Model Model Model Model
 
+function monochromatic(hslValue, colorValue, rgbValue) {
+  console.log("we're in the mono zone");
+
+  console.log(
+    "anal zone shows " + hslValue.s + " " + colorValue + " " + rgbValue.rNumber
+  );
+  colorArray.length = 0;
+  for (let i = -44; i <= 44; i += 22) {
+    const newHSL = Object.create(Protoarray);
+    newHSL.index = Protoarray.index += 1;
+    newHSL.h = hslValue.h;
+    newHSL.s = hslValue.s;
+    newHSL.l = hslValue.l + i;
+    const newRGB = convertHSLtoRGB(newHSL);
+    newHSL.r = newRGB.r;
+    newHSL.g = newRGB.g;
+    newHSL.b = newRGB.b;
+
+    newHSL.hex = rgbToHex(newRGB.r, newRGB.g, newRGB.b);
+    colorArray.push(newHSL);
+    // }
+    console.log("my new color array is: ", colorArray);
+  }
+  showGraphics(colorArray, colorValue);
+}
+
 function analogous(hslValue, colorValue, rgbValue) {
   console.log("we're in the anal zone");
-  // const rgbObj = changeHSL(colorValue);
-  // console.log("h1 in anal zone is " + h1);
+
   console.log(
     "anal zone shows " + hslValue.s + " " + colorValue + " " + rgbValue.rNumber
   );
@@ -55,11 +80,12 @@ function analogous(hslValue, colorValue, rgbValue) {
     newHSL.h = hslValue.h + i;
     newHSL.s = hslValue.s;
     newHSL.l = hslValue.l;
-    newHSL.r = rgbValue.rNumber;
-    newHSL.g = rgbValue.gNumber;
-    newHSL.b = rgbValue.bNumber;
-    newHSL.hex = rgbToHex(rgbValue.rNumber, rgbValue.gNumber, rgbValue.bNumber);
-    //  n // newHSL.hex = ``
+    const newRGB = convertHSLtoRGB(newHSL);
+    newHSL.r = newRGB.r;
+    newHSL.g = newRGB.g;
+    newHSL.b = newRGB.b;
+
+    newHSL.hex = rgbToHex(newRGB.r, newRGB.g, newRGB.b);
     colorArray.push(newHSL);
     // }
     console.log("my new color array is: ", colorArray);
@@ -72,25 +98,19 @@ function rgbToHex(r, g, b) {
   return newHEX;
 }
 
-// function monochromatic(colorValue) {
-//   console.log("we're in the mono zone");
-// }
 function pallettePicker() {
   const pallette = document.querySelector("#pallettePicker").value;
   return pallette;
-  console.log("we're in the picking zone");
 }
 
 function calculatePalette(palette, colorValue, rgbValue, hslValue) {
   if (palette == "analogous") {
     console.log("we're in the pre-anal zone");
-    // let result = analogous();
-    //
-    const colorArray = analogous(hslValue, colorValue, rgbValue);
-  } else if (pallette == "monochromatic") {
-    const colorArray = monochromatic(hslValue, colorValue, rgbValue);
+
+    analogous(hslValue, colorValue, rgbValue);
+  } else if (palette == "monochromatic") {
+    monochromatic(hslValue, colorValue, rgbValue);
   }
-  // showColors(colorArray);
   console.log("showColors");
 }
 
@@ -158,32 +178,79 @@ function changeHSL(colorValue) {
   return hsl;
 }
 
+function convertHSLtoRGB(newHSL) {
+  const h = newHSL.h;
+
+  const s = newHSL.s / 100;
+  const l = newHSL.l / 100;
+
+  let c = (1 - Math.abs(2 * l - 1)) * s,
+    x = c * (1 - Math.abs(((h / 60) % 2) - 1)),
+    m = l - c / 2,
+    r = 0,
+    g = 0,
+    b = 0;
+  if (0 <= h && h < 60) {
+    r = c;
+    g = x;
+    b = 0;
+  } else if (60 <= h && h < 120) {
+    r = x;
+    g = c;
+    b = 0;
+  } else if (120 <= h && h < 180) {
+    r = 0;
+    g = c;
+    b = x;
+  } else if (180 <= h && h < 240) {
+    r = 0;
+    g = x;
+    b = c;
+  } else if (240 <= h && h < 300) {
+    r = x;
+    g = 0;
+    b = c;
+  } else if (300 <= h && h < 360) {
+    r = c;
+    g = 0;
+    b = x;
+  }
+  r = Math.round((r + m) * 255);
+  g = Math.round((g + m) * 255);
+  b = Math.round((b + m) * 255);
+  let newRGB = { r, g, b };
+  return newRGB;
+}
+
 // View View View View
 
-function changeTextHEX(colorValue) {
-  document.querySelector("#hexvalue").textContent = colorValue;
-}
+// function changeTextHEX(colorValue) {
+//   document.querySelector("#hexvalue").textContent = colorValue;
+// }
 
-function changeTextRGB(colorValue) {
-  const rgbObj = changeRGB(colorValue);
-  document.querySelector("#rgbvalue").textContent =
-    rgbObj.rNumber + " " + rgbObj.gNumber + " " + rgbObj.bNumber;
-}
-function changeTextHSL(colorValue) {
-  const rgbObj = changeHSL(colorValue);
+// function changeTextRGB(colorValue) {
+//   const rgbObj = changeRGB(colorValue);
+//   document.querySelector("#rgbvalue").textContent =
+//     rgbObj.rNumber + " " + rgbObj.gNumber + " " + rgbObj.bNumber;
+// }
+// function changeTextHSL(colorValue) {
+//   const rgbObj = changeHSL(colorValue);
 
-  document.querySelector("#hslvalue").textContent =
-    rgbObj.h + ", " + rgbObj.s + "% " + rgbObj.l + "%";
-}
-function showCSSstring(colorValue) {
-  const CSSobj = calculateCSSstring(colorValue);
-  document.querySelector(
-    "#CSSvalue"
-  ).textContent = `rgb(${CSSobj.rCSS}, ${CSSobj.gCSS}, ${CSSobj.bCSS})`;
-}
+//   document.querySelector("#hslvalue").textContent =
+//     rgbObj.h + ", " + rgbObj.s + "% " + rgbObj.l + "%";
+// }
+// function showCSSstring(colorValue) {
+//   const CSSobj = calculateCSSstring(colorValue);
+//   document.querySelector(
+//     "#CSSvalue"
+//   ).textContent = `rgb(${CSSobj.rCSS}, ${CSSobj.gCSS}, ${CSSobj.bCSS})`;
+// }
 
 // Controller Controller Controller Controller
 
+// changeBackgroundColor(){
+
+// }
 function showGraphics(colorArray, colorValue) {
   console.log("color block is ", colorArray);
   const cloneColorArray = colorArray;
@@ -195,39 +262,6 @@ function showGraphics(colorArray, colorValue) {
     cloneColorArray[3].hex
   );
 
-  //   const colorblock = document.getElementById('box');
-
-  // let third;
-
-  // let placeholder = colorblock.nextElement;
-
-  // while (placeholder) {
-  //   if (placeholder.classList.contains('elSquare')) {
-
-  //   }
-
-  //   placeholder = placeholder.nextElement;
-  // }
-
-  // console.log(third); // 👉️ div.third
-  // console.log(colorArray[0].h);
-
-  // const frthObj = colorArray[3];
-  // const secObj = colorArray[1];
-  // const objobj = pallettePicker(pallette, colorValue);
-  // console.log(firstObj.h, firstObj.s, firstObj.l);
-  // console.log(secObj.h, secObj.s);
-  // console.log(firstObj.s, secObj.l, thirdObj.index, frthObj.r);
-  // console.log();
-  // console.log(
-  //   "h1 in the pallete picker is " +
-  //     `
-  //     hsl(${objobj.h1}, ${objobj.s1}%, ${objobj.l1}%) 10% ,
-  //     hsl(${objobj.h2}, ${objobj.s2}%, ${objobj.l2}%) 31%,
-  //     hsl(${objobj.h3}, ${objobj.s3}%, ${objobj.l3}%) 50%,
-  //     hsl(${objobj.h4}, ${objobj.s4}%, ${objobj.l4}%) 69%,
-  //     hsl(${objobj.h5}, ${objobj.s5}%, ${objobj.l5}%) 89%)`
-  // );
   document.querySelector(
     "#colorblock"
   ).style.backgroundImage = `linear-gradient(to right, hsl(${cloneColorArray[0].h}, ${cloneColorArray[0].s}%, ${cloneColorArray[0].l}%) 9% , hsl(${cloneColorArray[1].h}, ${cloneColorArray[1].s}%, ${cloneColorArray[1].l}%) 29.8%, hsl(${cloneColorArray[2].h}, ${cloneColorArray[2].s}%, ${cloneColorArray[2].l}%) 50%, hsl(${cloneColorArray[3].h}, ${cloneColorArray[3].s}%, ${cloneColorArray[3].l}%) 69%, hsl(${cloneColorArray[4].h}, ${cloneColorArray[4].s}%, ${cloneColorArray[4].l}%) 90%)`;

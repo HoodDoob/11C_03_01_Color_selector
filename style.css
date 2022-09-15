@@ -30,8 +30,8 @@ h1 {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   border-radius: 5vw;
-  width: 30vw;
-  height: 20vw;
+  width: 80vw;
+  height: 40vw;
 }
 
 .elLine {
@@ -66,7 +66,7 @@ h1 {
   border: 0.5px solid black;
   justify-self: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.144);
+  background-color: rgba(255, 255, 255, 0.368);
   /* margin-left: 1vw;
   margin-right: 1vw; */
 }
